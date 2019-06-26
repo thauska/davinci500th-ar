@@ -26,6 +26,11 @@ workbox.routing.registerRoute(
 )
 
 workbox.routing.registerRoute(
+	new RegExp('.*\.css'),
+	workbox.strategies.cacheFirst()
+)
+
+workbox.routing.registerRoute(
 	new RegExp('index.html'),
 	workbox.strategies.cacheFirst()
 )

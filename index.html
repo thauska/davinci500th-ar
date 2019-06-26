@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,54 +21,195 @@
         <script src="vendor/aframe-ar.min.js"></script>
         <script src="vendor/aframe-extras.min.js"></script>
         <script src="vendor/aframe-shadow-plane.js"></script>
+        <link rel="stylesheet" href="modal.min.css">
+        <script>
+                //Close with Escape Button
+                window.onkeydown = function (event) {
+                        if (event.keyCode === 27) {
+                                document.getElementById('close').click();
+                        }
+                };
+
+        </script>
+        <style>
+                header {
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        display: block;
+                        z-index: 2000;
+                        background-color: #8d6e63;
+                        color: #fff;
+                }
+
+                .ontop {
+                        background-image: linear-gradient(180deg, hsla(0, 0%, 100%, .3), hsla(0, 0%, 100%, 0) 50%, rgba(0, 0, 0, .12) 51%, rgba(0, 0, 0, .04)) !important;
+                        flex-wrap: nowrap;
+                        display: flex;
+                        position: relative;
+                        padding: 0 12px;
+                        min-height: 50px;
+                        width: 100%;
+                        align-items: center;
+                }
+
+                .title {
+                        flex: 1 1 0%;
+                        min-width: 1px;
+                        max-width: 100%;
+                        font-size: 21px;
+                        font-weight: 500;
+                        letter-spacing: .01em;
+                        padding: 0 12px;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                }
+
+                .btn {
+                        -webkit-appearance: button;
+                        padding: 0 12px;
+                        right: 20px;
+                        height: 2em;
+                        width: 2em;
+                        min-height: 2em;
+                        min-width: 2em;
+                        border-radius: 50%;
+                        position: relative;
+                        outline: 0;
+                        border: 0;
+                        vertical-align: middle;
+                        cursor: pointer;
+                        font-size: 14px;
+                        line-height: 1.718em;
+                        text-decoration: none;
+                        color: black;
+                        transition: .3s cubic-bezier(.25, .8, .5, 1);
+                        font-weight: 800;
+                        text-transform: uppercase;
+                        align-items: flex-start;
+                        text-align: center;
+                }
+
+                .marker {
+                        display: inline;
+                        max-width: 5em;
+                        max-height: 5em;
+                }
+        </style>
 </head>
-<body  style='margin : 0px; overflow: hidden;'>
-        <a-scene id="scene" arjs=' patternRatio:0.90; sourceType: webcam; trackingMethod: best; debugUIEnabled: false;' 
-                 vr-mode-ui="enabled: false" renderer="antialias: true;">
-          <a-assets >
-              <a-asset-item id="flymachine" src="model/flying_machine/scene.glb" crossorigin="anonymous"></a-asset-item>
-              <a-asset-item id="vitruvian" src="model/vitruvian/scene.glb" crossorigin="anonymous"></a-asset-item>
-              <a-asset-item id="leonardo" src="model/leonard_de_vinci/entity.glb" crossorigin="anonymous"></a-asset-item>
-              <img id="monalisa" src="img/monalisa.jpg" alt="quadro Monalisa">
-          </a-assets>
-    
-          <a-anchor id="m-fly" type='pattern' url='patterns/pattern-fly.patt'>
-            <a-entity gltf-model="#flymachine" scale="0.1 0.1 0.1" position="0 1 0" scale="0.1 0.1 0.1" rotation="-180 0 -180" animation-mixer
-                          animation__yoyo="property: position; dir: alternate; dur: 1000; easing: linear; loop: true; to: 0 1.5 0"></a-entity>
-          </a-anchor>
-          <a-anchor id="m-vitruvian" type='pattern' url='patterns/pattern-vitruvio.patt'>
-            <a-entity animation__rotate="property: rotation; dur: 20000;
+
+<body style='margin : 0px; overflow: hidden;'>
+        <header style='position:fixed; text-align: left; z-index: 1;'>
+                <div class="ontop">
+                        <div class="title">Da Vinci 500 anos - UFPA</div>
+                        <a href="#popup"><button tabindex="0" type="button" class="btn">!</button></a>
+                </div>
+
+        </header>
+        <div id="popup" class='modal' role="dialog" aria-labelledby="Modal title" aria-describedby="Modal description">
+                <div class="modal-content">
+                        <div class="header">
+                                <a href="#" id="close">
+                                        <div class="box box3">
+                                                <svg viewbox="0 0 40 40">
+                                                        <path class="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
+                                                </svg>
+                                        </div>
+                                </a>
+                                <h2>Da Vinci 500 anos - UFPA</h2>
+                        </div>
+                        <div class="copy">
+                                <h2>Como usar:</h2>
+                                <p><strong>Nota: Ao abrir a página da aplicação, por favor permita o uso da câmera. Sem
+                                                essa permissão a aplicação não funcionará corretamente.</strong></p>
+                                <ol>
+                                        <li>Procure pelos marcadores como esses abaixo: <br>
+                                                <img class="marker" src="img/pattern-monalisa200.png">
+                                                <img class="marker" src="img/pattern-vinci200.png">
+                                                <img class="marker" src="img/pattern-fly200.png">
+                                                <img class="marker" src="img/pattern-vitruvio200.png">
+                                        </li>
+                                        <li>Simplesmente aponte com a camera do dispositivo para qualquer um dos
+                                                marcadores e um modelo 3D será mostrado no display, representando obras
+                                                relacionadas ao Leonardo da Vinci</li>
+                                </ol>
+                                <p><strong>Observação:</strong> Para fazer uso desta aplicação, é necessário um
+                                        dispositivo com câmera. Recomendamos o uso de um dispositivo com o sistema
+                                        Android 4.1 ou superior ou um dispositivo Apple com o sistema iOS 11 ou
+                                        superior, embora também funcione em desktops/laptops com
+                                        webcam.</p>
+                                <div style="text-align: center">
+                                        <h5><strong>VR & AR + Web technologies = ❤</strong></h5>
+                                </div>
+
+                        </div>
+                        <div class="footer">
+                                <small>
+                                        <strong>Desenvolvido por <a href="http://github.com/thauska"
+                                                        target="_blank">Thayana
+                                                        Mamoré</a></strong>
+                                </small>
+                        </div>
+                </div>
+                <a href="#">
+                        <div class="overlay"></div>
+                </a>
+        </div>
+        <a-scene id="scene"
+                arjs='patternRatio:0.90; sourceType: webcam; trackingMethod: best; debugUIEnabled: false; maxDetectionRate: 30; canvasWidth: 240; canvasHeight: 180'
+                vr-mode-ui="enabled: false" renderer="antialias: true;">
+                <a-assets>
+                        <a-asset-item id="flymachine" src="model/flying_machine/scene.glb" crossorigin="anonymous">
+                        </a-asset-item>
+                        <a-asset-item id="vitruvian" src="model/vitruvian/scene.glb" crossorigin="anonymous">
+                        </a-asset-item>
+                        <a-asset-item id="leonardo" src="model/leonard_de_vinci/entity.glb" crossorigin="anonymous">
+                        </a-asset-item>
+                        <img id="monalisa" src="img/monalisa.jpg" alt="quadro Monalisa">
+                </a-assets>
+
+                <a-anchor id="m-fly" type='pattern' url='patterns/pattern-fly.patt'>
+                        <a-entity gltf-model="#flymachine" scale="0.1 0.1 0.1" position="0 1 0" scale="0.1 0.1 0.1"
+                                rotation="-180 0 -180" animation-mixer
+                                animation__yoyo="property: position; dir: alternate; dur: 1000; easing: linear; loop: true; to: 0 1.5 0">
+                        </a-entity>
+                </a-anchor>
+                <a-anchor id="m-vitruvian" type='pattern' url='patterns/pattern-vitruvio.patt'>
+                        <a-entity animation__rotate="property: rotation; dur: 20000;
                                             easing: linear; loop: true; to: 0 0 360">
-                <a-entity gltf-model="#vitruvian" rotation="90 180 0" position="1 0 1"></a-entity>
-            </a-entity>
-        </a-anchor>
-    
-        <a-anchor id="m-vinci" type='pattern' url='patterns/pattern-vinci.patt'>
-            <a-entity position="0.01945 0.55 -0.04" rotation="0 1.186595593715935 0" gltf-model="model/leonard_de_vinci/entity.glb" shadow></a-entity>
-            <!-- add shadow only ground -->
-            <a-entity position="-2.6 -0.07 -0.14" shadowonly-plane="width: 100; height: 100; opacity: 0.7"></a-entity>
-        </a-anchor>
-    
-        <a-anchor id="m-monalisa" type='pattern' url='patterns/pattern-monalisa.patt'>
-            <a-image src="#monalisa" width="2.88" height="4.55" rotation="-90 0 0"></a-image>
-        </a-anchor>
-    
-        <a-entity camera></a-entity>
-</a-scene>
+                                <a-entity gltf-model="#vitruvian" rotation="90 180 0" position="1 0 1"></a-entity>
+                        </a-entity>
+                </a-anchor>
 
-<script>
+                <a-anchor id="m-vinci" type='pattern' url='patterns/pattern-vinci.patt'>
+                        <a-entity position="0.01945 0.55 -0.04" rotation="0 1.186595593715935 0"
+                                gltf-model="model/leonard_de_vinci/entity.glb" shadow></a-entity>
+                        <!-- add shadow only ground -->
+                        <a-entity position="-2.6 -0.07 -0.14" shadowonly-plane="width: 100; height: 100; opacity: 0.7">
+                        </a-entity>
+                </a-anchor>
 
-var serviceWorkerIsSupported = 'serviceWorker' in navigator ? true : false
-// Check that service workers are registered
-if ( serviceWorkerIsSupported ) {
-        // Use the window load event to keep the page load performant
-        window.addEventListener('load', function(){
-                // register your service worker
-                navigator.serviceWorker.register('sw.js');
-                // to use the precaching version
-                // navigator.serviceWorker.register('sw-precaching.js');
-        });
-}
-</script>
+                <a-anchor id="m-monalisa" type='pattern' url='patterns/pattern-monalisa.patt'>
+                        <a-image src="#monalisa" width="2.88" height="4.55" rotation="-90 0 0"></a-image>
+                </a-anchor>
+
+                <a-entity camera></a-entity>
+        </a-scene>
+
+        <script>
+
+                var serviceWorkerIsSupported = 'serviceWorker' in navigator ? true : false
+                // Check that service workers are registered
+                if (serviceWorkerIsSupported) {
+                        // Use the window load event to keep the page load performant
+                        window.addEventListener('load', function () {
+                                // register your service worker
+                                navigator.serviceWorker.register('sw.js');
+                                // to use the precaching version
+                                // navigator.serviceWorker.register('sw-precaching.js');
+                        });
+                }
+        </script>
 
 </body>
