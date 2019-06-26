@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
         <meta charset="UTF-8">
@@ -13,6 +13,15 @@
                 content="width=device-width,initial-scale=1,maximum-scale=1,shrink-to-fit=no,user-scalable=no,minimal-ui">
         <meta aframe-injected="" name="mobile-web-app-capable" content="yes">
         <meta aframe-injected="" name="theme-color" content="black">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+        <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="favicon.ico">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-config" content="/images/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="manifest" href="manifest.json">
         <noscript>This page requires to have javascript enabled. Please enable javascript</noscript>
@@ -156,42 +165,50 @@
                         <div class="overlay"></div>
                 </a>
         </div>
-        <a-scene id="scene"
+        <a-scene
+                gltf-model="dracoDecoderPath: ./decoderfiles/"
                 arjs='patternRatio:0.90; sourceType: webcam; trackingMethod: best; debugUIEnabled: false; maxDetectionRate: 30; canvasWidth: 240; canvasHeight: 180'
                 vr-mode-ui="enabled: false" renderer="antialias: true;">
                 <a-assets>
-                        <a-asset-item id="flymachine" src="model/flying_machine/scene.glb" crossorigin="anonymous">
+                        <a-asset-item id="flymachine" src="model/flying_machine/optimized.glb" crossorigin="anonymous" response-type="arraybuffer">
                         </a-asset-item>
-                        <a-asset-item id="vitruvian" src="model/vitruvian/scene.glb" crossorigin="anonymous">
+                        <a-asset-item id="vitruvian" src="model/vitruvian/optimized.glb" crossorigin="anonymous" response-type="arraybuffer">
                         </a-asset-item>
-                        <a-asset-item id="leonardo" src="model/leonard_de_vinci/entity.glb" crossorigin="anonymous">
+                        <a-asset-item id="leonardo" src="model/leonard_de_vinci/optimized.glb" crossorigin="anonymous" response-type="arraybuffer">
                         </a-asset-item>
                         <img id="monalisa" src="img/monalisa.jpg" alt="quadro Monalisa">
                 </a-assets>
 
+                <a-entity light="angle: 100" position="0 5 4" data-aframe-default-light="" aframe-injected=""></a-entity>
+
                 <a-anchor id="m-fly" type='pattern' url='patterns/pattern-fly.patt'>
                         <a-entity gltf-model="#flymachine" scale="0.1 0.1 0.1" position="0 1 0" scale="0.1 0.1 0.1"
                                 rotation="-180 0 -180" animation-mixer
-                                animation__yoyo="property: position; dir: alternate; dur: 1000; easing: linear; loop: true; to: 0 1.5 0">
+                                animation__yoyo="property: position; dir: alternate; dur: 1000; easing: linear; loop: true; to: 0 1.5 0"
+                                shadow="receive: true">
+                        </a-entity>
+                        <!-- add shadow only ground -->
+                        <a-entity position="0 0 0" shadowonly-plane="width: 100; height: 100; opacity: 0.7">
                         </a-entity>
                 </a-anchor>
                 <a-anchor id="m-vitruvian" type='pattern' url='patterns/pattern-vitruvio.patt'>
                         <a-entity animation__rotate="property: rotation; dur: 20000;
                                             easing: linear; loop: true; to: 0 0 360">
-                                <a-entity gltf-model="#vitruvian" rotation="90 180 0" position="1 0 1"></a-entity>
+                                <a-entity gltf-model="#vitruvian" rotation="90 180 0"
+                                        position="1 0 1"></a-entity>
                         </a-entity>
                 </a-anchor>
 
                 <a-anchor id="m-vinci" type='pattern' url='patterns/pattern-vinci.patt'>
-                        <a-entity position="0.01945 0.55 -0.04" rotation="0 1.186595593715935 0"
-                                gltf-model="model/leonard_de_vinci/entity.glb" shadow></a-entity>
+                        <a-entity position="0.01945 0.55 -0.04" rotation="0 1.186595593715935 0" gltf-model="#leonardo"
+                                shadow></a-entity>
                         <!-- add shadow only ground -->
                         <a-entity position="-2.6 -0.07 -0.14" shadowonly-plane="width: 100; height: 100; opacity: 0.7">
                         </a-entity>
                 </a-anchor>
 
                 <a-anchor id="m-monalisa" type='pattern' url='patterns/pattern-monalisa.patt'>
-                        <a-image src="#monalisa" width="2.88" height="4.55" rotation="-90 0 0"></a-image>
+                        <a-image src="#monalisa" width="4" height="4.55" rotation="-90 0 0"></a-image>
                 </a-anchor>
 
                 <a-entity camera></a-entity>
@@ -207,7 +224,7 @@
                                 // register your service worker
                                 navigator.serviceWorker.register('sw.js');
                                 // to use the precaching version
-                                // navigator.serviceWorker.register('sw-precaching.js');
+                                navigator.serviceWorker.register('sw-precaching.js');
                         });
                 }
         </script>
