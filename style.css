@@ -1,0 +1,71 @@
+header {
+    top: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    z-index: 2000;
+    background-color: #8d6e63;
+    color: #fff;
+}
+
+.ontop {
+    background-image: linear-gradient(180deg, hsla(0, 0%, 100%, .3), hsla(0, 0%, 100%, 0) 50%, rgba(0, 0, 0, .12) 51%, rgba(0, 0, 0, .04)) !important;
+    flex-wrap: nowrap;
+    display: flex;
+    position: relative;
+    padding: 0 12px;
+    min-height: 50px;
+    width: 100%;
+    align-items: center;
+}
+
+.title {
+    flex: 1 1 0%;
+    min-width: 1px;
+    max-width: 100%;
+    font-size: 21px;
+    font-weight: 500;
+    letter-spacing: .01em;
+    padding: 0 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.btn {
+    -webkit-appearance: button;
+    padding: 0 12px;
+    right: 20px;
+    height: 2em;
+    width: 2em;
+    min-height: 2em;
+    min-width: 2em;
+    border-radius: 50%;
+    position: relative;
+    outline: 0;
+    border: 0;
+    vertical-align: middle;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1.718em;
+    text-decoration: none;
+    color: black;
+    transition: .3s cubic-bezier(.25, .8, .5, 1);
+    font-weight: 500;
+    align-items: flex-start;
+    text-align: center;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.marker {
+    display: inline;
+    max-width: 5em;
+    max-height: 5em;
+}

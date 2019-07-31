@@ -21,11 +21,6 @@ workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug)
 //		register some routes
 //////////////////////////////////////////////////////////////////////////////
 workbox.routing.registerRoute(
-	new RegExp('.*\.js'),
-	workbox.strategies.cacheFirst()
-)
-
-workbox.routing.registerRoute(
 	new RegExp('.*\.css'),
 	workbox.strategies.cacheFirst()
 )
