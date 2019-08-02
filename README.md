@@ -23,7 +23,7 @@ Aplicação em **Realidade Aumentada na Web** com **[A-Frame](https://aframe.io/
 
   ![qrcode](/fotos/qrcode.png)
   
-  - ou [clicando aqui](http://bit.ly/davinci500ufpa).
+  - ou [clicando aqui](https://bit.ly/davinci500ufpa).
 
   Observações: Marcadores disponíveis para download na própria página.
 
